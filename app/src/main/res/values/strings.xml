@@ -1,6 +1,26 @@
 <resources>
     <string name="app_name">Artists</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Artists</string>
     <string name="cache_file">cache.json</string>
     <string name="fetch_url">http://download.cdn.yandex.net/mobilization-2016/artists.json</string>
+    <string name="json_error_text">JSON Error occurred</string>
+
+    <plurals name="albums">
+        <item quantity="zero">Нет альбомов</item>
+        <item quantity="one">%1d альбом</item>
+        <item quantity="two">%1d альбома</item>
+        <item quantity="few">%1d альбома</item>
+        <item quantity="many">%1d альбомов</item>
+        <item quantity="other">Альбомов: %1d</item>
+    </plurals>
+
+    <plurals name="tracks">
+        <item quantity="zero">Нет песен</item>
+        <item quantity="one">%1d песня</item>
+        <item quantity="two">%1d песни</item>
+        <item quantity="few">%1d песни</item>
+        <item quantity="many">%1d песен</item>
+        <item quantity="other">Песен: %1d</item>
+    </plurals>
 </resources>
+
