@@ -10,22 +10,15 @@ public class Artist {
     JSONArray genres;
     Integer tracks;
     Integer albums;
-    String link;
     String description;
     String bigImageURL;
     String smallImageURL;
-    Integer bigImage;
-    Integer smallImage;
-
-
-
 
     Artist(JSONObject json_artist) throws JSONException{
         name = json_artist.getString("name");
         genres = json_artist.getJSONArray("genres");
         tracks =  json_artist.getInt("tracks");
         albums = json_artist.getInt("albums");
-        link = json_artist.getString("link");
         description = json_artist.getString("description");
         bigImageURL = json_artist.getJSONObject("cover").getString("big");
         smallImageURL = json_artist.getJSONObject("cover").getString("small");
