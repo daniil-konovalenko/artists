@@ -17,7 +17,6 @@ import org.json.JSONException;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private String url;
 
     private ArtistAdapter artistAdapter;
-    private List<Artist> artists_list = new ArrayList<>();
+    private ArrayList<Artist> artists_list = new ArrayList<>();
 
     private ListView listView;
 
