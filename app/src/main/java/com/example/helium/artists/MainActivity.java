@@ -47,23 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         url = getString(R.string.fetch_url);
 
-        JsonArrayRequest artistsRequest = new JsonArrayRequest(Request.Method.GET, url, "",
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d(TAG, response.toString());
-
-                        writeJSONToArtistList(response);
-
-                        artistAdapter.notifyDataSetChanged();
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(TAG, error.getMessage(), error);
-            }
-        });
+        JsonArrayRequest artistsRequest = getJSONArrayRequest(url);
 
         AppController.getInstance().addToRequestQueue(artistsRequest);
 
@@ -83,6 +67,27 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    private JsonArrayRequest getJSONArrayRequest(String url){
+
+        return new JsonArrayRequest(Request.Method.GET, url, "",
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d(TAG, response.toString());
+
+                        writeJSONToArtistList(response);
+
+                        artistAdapter.notifyDataSetChanged();
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, error.getMessage(), error);
+                    }
+                });
     }
     
 }
