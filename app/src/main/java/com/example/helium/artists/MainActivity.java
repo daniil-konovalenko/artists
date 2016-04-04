@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private String url;
 
     private ArtistAdapter artistAdapter;
-    private ArrayList<Artist> artists_list = new ArrayList<>();
+    private ArrayList<Artist> artistsList = new ArrayList<>();
 
     private ListView listView;
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listView = (ListView) findViewById(R.id.listViewMain);
-        artistAdapter = new ArtistAdapter(this, artists_list);
+        artistAdapter = new ArtistAdapter(this, artistsList);
         listView.setAdapter(artistAdapter);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         for (Integer i = 0; i < artists_json.length(); i++){
             try {
                 Artist current_artist = new Artist(artists_json.getJSONObject(i));
-                this.artists_list.add(current_artist);
+                this.artistsList.add(current_artist);
             }
             catch (JSONException e){
                 e.printStackTrace();
