@@ -1,22 +1,41 @@
 package com.example.helium.artists;
 
-import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Artist {
+
+public class Artist implements Serializable{
     String name;
-    JSONArray genres;
+    ArrayList<String> genres;
     Integer tracks;
     Integer albums;
     String description;
     String bigImageURL;
     String smallImageURL;
 
+    Artist (String name,
+            ArrayList<String> genres,
+            Integer tracks,
+            Integer albums,
+            String description,
+            String bigImageURL,
+            String smallImageURL){
+        this.name = name;
+        this.genres = genres;
+        this.tracks = tracks;
+        this.albums = albums;
+        this.description = description;
+        this.bigImageURL = bigImageURL;
+        this.smallImageURL = smallImageURL;
+    }
+
     Artist(JSONObject json_artist) throws JSONException{
         name = json_artist.getString("name");
-        genres = json_artist.getJSONArray("genres");
+        genres = (ArrayList<String>) JSONHelper.toList(json_artist.getJSONArray("genres"));
         tracks =  json_artist.getInt("tracks");
         albums = json_artist.getInt("albums");
         description = json_artist.getString("description");
@@ -26,16 +45,12 @@ public class Artist {
     }
 
     public String getGenresString() {
-        try {
-            return genres.join(", ");
+        String result = "";
+        for (int i = 0; i < genres.size(); i++){
+            result += (genres.get(i) + ", ");
         }
-        catch (JSONException e){
-            return "Genres not available";
-        }
+        return result;
     }
-
-
-
-
-
+    
 }
+
