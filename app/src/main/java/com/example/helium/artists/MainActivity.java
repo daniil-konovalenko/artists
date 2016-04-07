@@ -1,19 +1,22 @@
 package com.example.helium.artists;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-
 
 
 import java.util.ArrayList;
@@ -46,7 +49,18 @@ public class MainActivity extends AppCompatActivity {
 
         url = getString(R.string.fetch_url);
 
-        JsonArrayRequest artistsRequest = getJSONArrayRequest(url);
+        final JsonArrayRequest artistsRequest = getJSONArrayRequest(url);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, ArtistActivity.class);
+                Artist artist = (Artist) artistAdapter.getItem(position);
+                intent.putExtra("artist", artist);
+                startActivity(intent);
+
+            }
+        });
 
         AppController.getInstance().addToRequestQueue(artistsRequest);
 
@@ -68,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private JsonArrayRequest getJSONArrayRequest(String url){
+    private JsonArrayRequest getJSONArrayRequest(String url) {
 
         return new JsonArrayRequest(Request.Method.GET, url, "",
                 new Response.Listener<JSONArray>() {
@@ -82,11 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, error.getMessage(), error);
-                    }
-                });
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, error.getMessage(), error);
+            }
+        });
     }
-    
+
 }
