@@ -1,6 +1,8 @@
 package com.example.helium.artists;
 
 
+import android.text.TextUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,12 +47,7 @@ public class Artist implements Serializable{
     }
 
     public String getGenresString() {
-        String result = "";
-        for (int i = 0; i < genres.size(); i++){
-            result += (genres.get(i) + ", ");
-        }
-        return result;
+        return TextUtils.join(", ", genres);
     }
-    
 }
 
