@@ -2,6 +2,7 @@ package com.example.helium.artists;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,6 +20,8 @@ import org.json.JSONException;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArtistAdapter artistAdapter;
     private ArrayList<Artist> artistsList = new ArrayList<>();
-
+    private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
 
 
@@ -38,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
 
         listView = (ListView) findViewById(R.id.listViewMain);
         artistAdapter = new ArtistAdapter(this, artistsList);
@@ -49,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         url = getString(R.string.fetch_url);
 
         final JsonArrayRequest artistsRequest = getJSONArrayRequest(url);
+        listView.setFastScrollEnabled(true);
+        listView.setFastScrollAlwaysVisible(true);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -61,17 +75,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        AppController.getInstance().addToRequestQueue(artistsRequest);
-
+        refreshData();
     }
 
 
     protected void writeJSONToArtistList(JSONArray artists_json){
-
+        artistsList.clear();
         for (Integer i = 0; i < artists_json.length(); i++){
             try {
                 Artist current_artist = new Artist(artists_json.getJSONObject(i));
                 this.artistsList.add(current_artist);
+                Collections.sort(artistsList, artistComparator);
             }
             catch (JSONException e){
                 e.printStackTrace();
@@ -92,14 +106,28 @@ public class MainActivity extends AppCompatActivity {
                         writeJSONToArtistList(response);
 
                         artistAdapter.notifyDataSetChanged();
+                        swipeRefreshLayout.setRefreshing(false);
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, error.getMessage(), error);
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    public Comparator<Artist> artistComparator = new Comparator<Artist>() {
+        @Override
+        public int compare(Artist lhs, Artist rhs) {
+            return lhs.name.compareTo(rhs.name);
+        }
+    };
+
+    private void refreshData(){
+        JsonArrayRequest request = getJSONArrayRequest(url);
+        AppController.getInstance().addToRequestQueue(request);
     }
 
 }
