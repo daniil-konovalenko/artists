@@ -11,13 +11,13 @@ import java.util.ArrayList;
 
 
 public class Artist implements Serializable{
-    String name;
-    ArrayList<String> genres;
-    Integer tracks;
-    Integer albums;
-    String description;
-    String bigImageURL;
-    String smallImageURL;
+    private String name;
+    private ArrayList<String> genres;
+    private Integer tracks;
+    private Integer albums;
+    private String description;
+    private String bigImageURL;
+    private String smallImageURL;
 
     Artist (String name,
             ArrayList<String> genres,
@@ -49,5 +49,64 @@ public class Artist implements Serializable{
     public String getGenresString() {
         return TextUtils.join(", ", genres);
     }
+
+    public String getName(){
+        return name;
+    }
+
+    public ArrayList<String> getGenres(){
+        return genres;
+    }
+
+    public Integer getTracks(){
+        return tracks;
+    }
+
+    public Integer getAlbums(){
+        return albums;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public String getBigImageURL(){
+        return bigImageURL;
+    }
+
+    public String getSmallImageURL(){
+        return smallImageURL;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void setGenres(ArrayList<String> genres){
+        this.genres = genres;
+    }
+
+    public void setTracks(Integer tracks){
+        this.tracks = tracks;
+    }
+
+    public void setAlbums(Integer albums){
+        this.albums = albums;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
+    public void setBigImageURL(String url){
+        this.bigImageURL = url;
+    }
+
+    public void setSmallImageURL(String url){
+        this.smallImageURL = url;
+    }
+
+
+
 }
 

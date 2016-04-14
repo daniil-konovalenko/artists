@@ -66,10 +66,10 @@ public class ArtistAdapter extends BaseAdapter {
         Artist artist = (Artist) getItem(position);
 
         // cover image
-        coverImageView.setImageUrl(artist.smallImageURL, imageLoader);
+        coverImageView.setImageUrl(artist.getSmallImageURL(), imageLoader);
 
         // Artist's name
-        name.setText(artist.name);
+        name.setText(artist.getName());
 
         // Artist's genres
         genres.setText(artist.getGenresString());
@@ -77,9 +77,9 @@ public class ArtistAdapter extends BaseAdapter {
         // Number of artist's albums and tracks in proper plural form
 
         String AlbumsCount = ctx.getResources().
-                getQuantityString(R.plurals.albums, artist.albums, artist.albums);
+                getQuantityString(R.plurals.albums, artist.getAlbums(), artist.getAlbums());
         String TracksCount = ctx.getResources().
-                getQuantityString(R.plurals.tracks, artist.tracks, artist.tracks);
+                getQuantityString(R.plurals.tracks, artist.getTracks(), artist.getTracks());
 
         albumsTracksCount.setText(String.format("%s, %s", AlbumsCount, TracksCount));
 

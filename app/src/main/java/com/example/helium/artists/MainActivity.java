@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     public Comparator<Artist> artistComparator = new Comparator<Artist>() {
         @Override
         public int compare(Artist lhs, Artist rhs) {
-            return lhs.name.compareTo(rhs.name);
+            return lhs.getName().compareTo(rhs.getName());
         }
     };
 

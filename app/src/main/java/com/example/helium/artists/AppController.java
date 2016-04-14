@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.example.helium.artists.util.LruBitmapCache;
 
 public class AppController extends Application{
     public static final String TAG = AppController.class.getSimpleName();

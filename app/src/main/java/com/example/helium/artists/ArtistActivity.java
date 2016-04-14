@@ -22,9 +22,9 @@ public class ArtistActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setTitle(artist.name);
+        setTitle(artist.getName());
         NetworkImageView imageView = (NetworkImageView) findViewById(R.id.bigImageView);
-        imageView.setImageUrl(artist.bigImageURL, imageLoader);
+        imageView.setImageUrl(artist.getBigImageURL(), imageLoader);
 
 
     }
