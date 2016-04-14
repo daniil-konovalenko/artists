@@ -21,7 +21,7 @@ public class Artist implements Serializable{
     private String bigImageURL;
     private String smallImageURL;
 
-    Artist (String name,
+    public Artist (String name,
             ArrayList<String> genres,
             Integer tracks,
             Integer albums,
@@ -37,7 +37,7 @@ public class Artist implements Serializable{
         this.smallImageURL = smallImageURL;
     }
 
-    Artist(JSONObject json_artist) throws JSONException{
+    public Artist(JSONObject json_artist) throws JSONException{
         name = json_artist.getString("name");
         genres = (ArrayList<String>) JSONHelper.toList(json_artist.getJSONArray("genres"));
         tracks =  json_artist.getInt("tracks");
