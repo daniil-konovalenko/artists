@@ -1,7 +1,9 @@
-package com.example.helium.artists;
+package com.example.helium.artists.model;
 
 
 import android.text.TextUtils;
+
+import com.example.helium.artists.util.JSONHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;

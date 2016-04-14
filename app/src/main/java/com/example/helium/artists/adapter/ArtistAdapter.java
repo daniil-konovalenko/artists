@@ -1,4 +1,4 @@
-package com.example.helium.artists;
+package com.example.helium.artists.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,10 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.example.helium.artists.R;
+import com.example.helium.artists.app.AppController;
+import com.example.helium.artists.model.Artist;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

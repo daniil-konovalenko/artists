@@ -1,4 +1,4 @@
-package com.example.helium.artists;
+package com.example.helium.artists.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.support.v7.widget.Toolbar;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.example.helium.artists.R;
+import com.example.helium.artists.app.AppController;
+import com.example.helium.artists.model.Artist;
 
 public class ArtistActivity extends AppCompatActivity {
 

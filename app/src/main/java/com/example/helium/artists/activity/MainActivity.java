@@ -1,4 +1,4 @@
-package com.example.helium.artists;
+package com.example.helium.artists.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.example.helium.artists.adapter.ArtistAdapter;
+import com.example.helium.artists.R;
+import com.example.helium.artists.app.AppController;
+import com.example.helium.artists.model.Artist;
 
 import org.json.JSONArray;
 import org.json.JSONException;

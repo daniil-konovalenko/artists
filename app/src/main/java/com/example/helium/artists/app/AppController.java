@@ -1,4 +1,4 @@
-package com.example.helium.artists;
+package com.example.helium.artists.app;
 
 
 import android.app.Application;
