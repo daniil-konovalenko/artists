@@ -3,11 +3,12 @@ package com.example.helium.artists.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -39,10 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ArtistAdapter artistAdapter;
     private ArrayList<Artist> artistsList = new ArrayList<>();
-    private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
     private ProgressDialog progressDialog;
-    private AlertDialog alertDialog;
 
 
     @Override
@@ -50,14 +49,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshData();
-            }
-        });
 
         listView = (ListView) findViewById(R.id.listViewMain);
         artistAdapter = new ArtistAdapter(this, artistsList);
@@ -89,6 +80,26 @@ public class MainActivity extends AppCompatActivity {
         refreshData();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.activity_main_actions, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.action_refresh:
+                refreshData();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
 
     protected void writeJSONToArtistList(JSONArray artists_json){
         artistsList.clear();
@@ -102,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
                 Log.e("JSONToArtist", e.getMessage());
             }
-
         }
     }
 
@@ -117,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
                         writeJSONToArtistList(response);
 
                         artistAdapter.notifyDataSetChanged();
-                        swipeRefreshLayout.setRefreshing(false);
                         progressDialog.dismiss();
 
                     }
@@ -125,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, error.getMessage(), error);
-                swipeRefreshLayout.setRefreshing(false);
                 progressDialog.dismiss();
             }
         });
@@ -142,7 +150,4 @@ public class MainActivity extends AppCompatActivity {
         JsonArrayRequest request = getJSONArrayRequest(url);
         AppController.getInstance().addToRequestQueue(request);
     }
-
-
-
 }
