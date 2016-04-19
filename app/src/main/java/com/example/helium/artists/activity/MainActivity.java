@@ -1,8 +1,10 @@
 package com.example.helium.artists.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Artist> artistsList = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListView listView;
+    private ProgressDialog progressDialog;
+    private AlertDialog alertDialog;
 
 
     @Override
@@ -61,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.show();
 
         url = getString(R.string.fetch_url);
 
@@ -111,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
                         artistAdapter.notifyDataSetChanged();
                         swipeRefreshLayout.setRefreshing(false);
+                        progressDialog.dismiss();
 
                     }
                 }, new Response.ErrorListener() {
@@ -118,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, error.getMessage(), error);
                 swipeRefreshLayout.setRefreshing(false);
+                progressDialog.dismiss();
             }
         });
     }
@@ -133,5 +142,7 @@ public class MainActivity extends AppCompatActivity {
         JsonArrayRequest request = getJSONArrayRequest(url);
         AppController.getInstance().addToRequestQueue(request);
     }
+
+
 
 }
