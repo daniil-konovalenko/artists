@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.show();
 
         url = getString(R.string.fetch_url);
 
@@ -147,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void refreshData(){
+        progressDialog.show();
         JsonArrayRequest request = getJSONArrayRequest(url);
         AppController.getInstance().addToRequestQueue(request);
     }
