@@ -6,6 +6,8 @@
     <string name="json_error_text">JSON Error occurred</string>
     <string name="action_refresh">Обновить</string>
     <string name="title_activity_artist">Artist Activity</string>
+    <string name="biography">Биография</string>
+    <string name="albums_and_tracks_delimiter">"%1$s • %2$s"</string>
 
     <plurals name="albums">
         <item quantity="zero">Нет альбомов</item>
